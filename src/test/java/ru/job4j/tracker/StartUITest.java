@@ -7,8 +7,59 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
+    @Test
+    public void whenFindById() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("First item"));
+        Input in = new StubInput(
+                new String[] {"0", "0","1" } //String.valueOf(item.getId())
+        );
+        UserAction[] actions = {
+                new FindItemByIdAction(out),
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findById(item.getId()).getName(), is(
+                "First item"));
+    }
 
     @Test
+    public void whenFindByName() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("First item"));
+        Input in = new StubInput(
+                new String[] {"0", "First item","1" } //String.valueOf(item.getId())
+        );
+        UserAction[] actions = {
+                new FindItemByNameAction(out),
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findByName(item.getName()), is(
+                tracker.findAll()));
+    }
+
+    @Test
+    public void whenFindAll() {
+        Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("First item"));
+        Item item2 = tracker.add(new Item("Second item"));
+        Input in = new StubInput(
+                new String[] {"0","1" } //String.valueOf(item.getId())
+        );
+        UserAction[] actions = {
+                new ShowAction(out),
+                new ExitAction()
+        };
+        new StartUI(out).init(in, tracker, actions);
+        assertThat(tracker.findAll()[1].getName(), is(
+                "Second item"));
+    }
+
+    /*@Test
     public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
@@ -23,7 +74,7 @@ public class StartUITest {
                 "Menu." + System.lineSeparator() +
                         "0. Exit" + System.lineSeparator()
         ));
-    }
+    }*/
 
     /*@Test
     public void whenCreateItem() {
