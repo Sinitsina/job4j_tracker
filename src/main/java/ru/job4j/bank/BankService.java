@@ -9,16 +9,15 @@ public class BankService {
 
     public void addUser(User user) {
         users.putIfAbsent(user, new ArrayList<Account>());
-        /*if (!(users.containsKey(user))) {
-            users.put(user, new ArrayList<Account>());
-        }*/
     }
 
     public void addAccount(String passport, Account account) {
         User byPassport = findByPassport(passport);
-        List<Account> value = users.get(byPassport);
-        if(!(value.contains(account))) {
-            value.add(account);
+        if (byPassport != null) {
+            List<Account> value = users.get(byPassport);
+            if(!(value.contains(account))) {
+                value.add(account);
+            }
         }
     }
 
@@ -27,6 +26,7 @@ public class BankService {
         for (User user : users.keySet()) {
             if(user.getPassport().equals(passport)) {
                 rst = user;
+                break;
             }
         }
         return rst;
@@ -34,12 +34,15 @@ public class BankService {
 
     public Account findByRequisite(String passport, String requisite) {
         User byPassport = findByPassport(passport);
-        List<Account> value = users.get(byPassport);
         Account result = null;
-        if (value != null) {
-            for (Account account : value) {
-                if (account.getRequisite().equals(requisite)) {
-                    result = account;
+        if(byPassport != null) {
+            List<Account> value = users.get(byPassport);
+            if (value != null) {
+                for (Account account : value) {
+                    if (account.getRequisite().equals(requisite)) {
+                        result = account;
+                        break;
+                    }
                 }
             }
         }
@@ -51,7 +54,7 @@ public class BankService {
         boolean rsl = false;
         Account srcAccount = findByRequisite(srcPassport, srcRequisite);
         Account destAccount = findByRequisite(destPassport, destRequisite);
-        if (!(srcAccount == null || destAccount == null || srcAccount.getBalance() < amount)) {
+        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
             double difSrcAccount = srcAccount.getBalance() - amount;
             double difDestAccount = destAccount.getBalance() + amount;
             srcAccount.setBalance(difSrcAccount);
