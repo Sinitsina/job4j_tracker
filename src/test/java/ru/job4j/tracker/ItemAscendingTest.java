@@ -39,4 +39,17 @@ public class ItemAscendingTest {
                 "Item{id=0, name='Fifth Item'}]"));
     }
 
+    @Test
+    public void whenDescendingOrder2() {
+        List<Item> items = Arrays.asList(
+                new Item("First Item"),
+                new Item("Second Item"),
+                new Item("Fifth Item")
+        );
+        Collections.sort(items, new SortItemByNameReverse());
+        assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, " +
+                "Item{id=0, name='First Item'}, " +
+                "Item{id=0, name='Fifth Item'}]"));
+    }
+
 }
