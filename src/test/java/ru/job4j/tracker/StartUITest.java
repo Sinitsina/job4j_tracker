@@ -10,7 +10,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
-    final String s = System.lineSeparator();
+    private final String s = System.lineSeparator();
 
     @Test
     public void whenFindById() {
@@ -18,21 +18,21 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("First item"));
         Input in = new StubInput(
-                new String[] {"0", "1","1" } //String.valueOf(item.getId())
+                new String[] {"0", "1", "1" } //String.valueOf(item.getId())
         );
         List<UserAction> actions = new ArrayList<>();
         actions.add(new FindItemByIdAction(out));
         actions.add(new ExitAction());
 
         new StartUI(out).init(in, tracker, actions);
-        assertThat(out.toString(), is("Menu." + s +
-                "0. Find by id" + s +
-                "1. Exit" + s +
-                "=== Find Item by ID ====" +s +
-                "Item{id=1, name='First item'}" + s +
-                "Menu." + s +
-                "0. Find by id" + s +
-                "1. Exit" + s));
+        assertThat(out.toString(), is("Menu." + s
+                + "0. Find by id" + s
+                + "1. Exit" + s
+                + "=== Find Item by ID ====" + s
+                + "Item{id=1, name='First item'}" + s
+                + "Menu." + s
+                + "0. Find by id" + s
+                + "1. Exit" + s));
     }
 
     @Test
@@ -41,21 +41,21 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         tracker.add(new Item("First item"));
         Input in = new StubInput(
-                new String[] {"0", "First item","1" } //String.valueOf(item.getId())
+                new String[] {"0", "First item", "1" } //String.valueOf(item.getId())
         );
         List<UserAction> actions = new ArrayList<>();
         actions.add(new FindItemByNameAction(out));
         actions.add(new ExitAction());
 
         new StartUI(out).init(in, tracker, actions);
-        assertThat(out.toString(), is("Menu." + s +
-                "0. Find by name" + s +
-                "1. Exit" + s +
-                "=== Find Item by name ====" +s +
-                "Item{id=1, name='First item'}" + s +
-                "Menu." + s +
-                "0. Find by name" + s +
-                "1. Exit" + s
+        assertThat(out.toString(), is("Menu." + s
+                + "0. Find by name" + s
+                + "1. Exit" + s
+                + "=== Find Item by name ====" + s
+                + "Item{id=1, name='First item'}" + s
+                + "Menu." + s
+                + "0. Find by name" + s
+                + "1. Exit" + s
         ));
     }
 
@@ -68,21 +68,21 @@ public class StartUITest {
         Input in = new StubInput(
                 new String[] {"0", "1"} //String.valueOf(item.getId())
         );
-        List <UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
                 actions.add(new ShowAction(out));
                 actions.add(new ExitAction());
 
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
-                "Menu." + s +
-                        "0. Show" + s +
-                        "1. Exit" + s +
-                        "=== Show all Items ====" +s +
-                        "Item{id=1, name='First item'}" + s +
-                        "Item{id=2, name='Second item'}" + s +
-                        "Menu." + s +
-                        "0. Show" + s +
-                        "1. Exit" + s
+                "Menu." + s
+                        + "0. Show" + s
+                        + "1. Exit" + s
+                        + "=== Show all Items ====" + s
+                        + "Item{id=1, name='First item'}" + s
+                        + "Item{id=2, name='Second item'}" + s
+                        + "Menu." + s
+                        + "0. Show" + s
+                        + "1. Exit" + s
                 ));
     }
 
@@ -90,10 +90,10 @@ public class StartUITest {
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(
-                new String[] {"8","0"}
+                new String[] {"8", "0"}
         );
         Tracker tracker = new Tracker();
-        List <UserAction> actions = new ArrayList<>();
+        List<UserAction> actions = new ArrayList<>();
         actions.add(new ExitAction());
 
         new StartUI(out).init(in, tracker, actions);

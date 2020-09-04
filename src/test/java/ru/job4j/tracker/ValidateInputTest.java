@@ -39,6 +39,4 @@ public class ValidateInputTest {
         int selected = input.askInt("Enter menu:");
         assertThat(out.toString(), is("Please enter validate data again.\r\n"));
     }
-
-
 }

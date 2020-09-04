@@ -13,6 +13,6 @@ public class LexSort implements Comparator<String> {
         int s = Integer.parseInt(numLeft);
         int s2 = Integer.parseInt(numRight);
 
-        return s-s2;
+        return s - s2;
     }
 }

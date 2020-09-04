@@ -20,9 +20,9 @@ public class ItemAscendingTest {
                 new Item("Fifth Item")
         );
         Collections.sort(items, new SortItemByName());
-        assertThat(items.toString(), is("[Item{id=0, name='Fifth Item'}, " +
-                "Item{id=0, name='First Item'}, " +
-                "Item{id=0, name='Second Item'}]"));
+        assertThat(items.toString(), is("[Item{id=0, name='Fifth Item'}, "
+                + "Item{id=0, name='First Item'}, "
+                + "Item{id=0, name='Second Item'}]"));
     }
 
     @Test
@@ -34,9 +34,9 @@ public class ItemAscendingTest {
         );
         Comparator nameComparator = new SortItemByName();
         Collections.sort(items, nameComparator.reversed());
-        assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, " +
-                "Item{id=0, name='First Item'}, " +
-                "Item{id=0, name='Fifth Item'}]"));
+        assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, "
+                + "Item{id=0, name='First Item'}, "
+                + "Item{id=0, name='Fifth Item'}]"));
     }
 
     @Test
@@ -47,9 +47,9 @@ public class ItemAscendingTest {
                 new Item("Fifth Item")
         );
         Collections.sort(items, new SortItemByNameReverse());
-        assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, " +
-                "Item{id=0, name='First Item'}, " +
-                "Item{id=0, name='Fifth Item'}]"));
+        assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, "
+                + "Item{id=0, name='First Item'}, "
+                + "Item{id=0, name='Fifth Item'}]"));
     }
 
 }
