@@ -1,9 +1,8 @@
 package ru.job4j.tracker;
 
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class ValidateInputTest {
 
@@ -15,7 +14,7 @@ public class ValidateInputTest {
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(selected, is(1));
+        Assert.assertThat(selected, Matchers.is(1));
     }
 
     @Test
@@ -26,7 +25,7 @@ public class ValidateInputTest {
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(selected, is(1));
+        Assert.assertThat(selected, Matchers.is(1));
     }
 
     @Test
@@ -37,7 +36,7 @@ public class ValidateInputTest {
         );
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
-        assertThat(out.toString(),
-                is("Please enter validate data again." + System.lineSeparator()));
+        Assert.assertThat(out.toString(),
+                Matchers.is("Please enter validate data again." + System.lineSeparator()));
     }
 }
