@@ -4,23 +4,15 @@ import java.util.*;
 
 public class Departments {
     public static List<String> fillGaps(List<String> deps) {
-        HashSet<String> tmp = new HashSet<>();
+        TreeSet<String> tmp = new TreeSet<>();
         for (String value : deps) {
             String start = "";
             for (String el : value.split("/")) {
-                if (value.indexOf(el) == 0) {
-                    tmp.add(el);
-                    start = el;
-                    continue;
-                }
-                tmp.add(start + "/" + el);
-                start = start + "/" + el;
+                tmp.add(start + el);
+                start = start + el + "/";
             }
         }
-        List<String> rsl = new ArrayList<>(tmp);
-        Collections.sort(rsl);
-        return rsl;
-
+        return new ArrayList<>(tmp);
     }
 
     public static void sortAsc(List<String> orgs) {
