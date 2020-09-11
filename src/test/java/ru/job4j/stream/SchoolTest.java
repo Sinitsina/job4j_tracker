@@ -16,16 +16,7 @@ public class SchoolTest {
                 new Student("Petrov", 68),
                 new Student("Sidorov", 33)
         );
-        Predicate<Student> predict = new Predicate<>() {
-            @Override
-            public boolean test(Student n) {
-                if (n.getScore() >= 70 && n.getScore() <= 100) {
-                    return true;
-                }
-                return false;
-            }
-        };
-
+        Predicate<Student> predict = st -> st.getScore() >= 70 && st.getScore() <= 100;
         List<Student> result = School.collect(students, predict);
         List<Student> expected = List.of(
                 new Student("Ivanov", 90));
@@ -39,16 +30,7 @@ public class SchoolTest {
                 new Student("Petrov", 50),
                 new Student("Sidorov", 65)
         );
-        Predicate<Student> predict = new Predicate<>() {
-            @Override
-            public boolean test(Student n) {
-                if (n.getScore() >= 50 && n.getScore() < 70) {
-                    return true;
-                }
-                return false;
-            }
-        };
-
+        Predicate<Student> predict = st -> st.getScore() >= 50 && st.getScore() < 70;
         List<Student> result = School.collect(students, predict);
         List<Student> expected = List.of(
                 new Student("Petrov", 50),
@@ -63,16 +45,7 @@ public class SchoolTest {
                 new Student("Petrov", 50),
                 new Student("Sidorov", 40)
         );
-        Predicate<Student> predict = new Predicate<>() {
-            @Override
-            public boolean test(Student n) {
-                if (n.getScore() > 0 && n.getScore() < 50) {
-                    return true;
-                }
-                return false;
-            }
-        };
-
+        Predicate<Student> predict = st -> st.getScore() > 0 && st.getScore() < 50;
         List<Student> result = School.collect(students, predict);
         List<Student> expected = List.of(
                 new Student("Sidorov", 40));
