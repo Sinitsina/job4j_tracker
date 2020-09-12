@@ -11,10 +11,11 @@ public class MapStudents {
             new Student("Kozlov", 85));
 
     static Map<String, Student> convert(List<Student> students) {
-        return students.stream().distinct().collect(
+        return students.stream().collect(
                 Collectors.toMap(
                         e -> e.getSurname(),
-                        e -> e
+                        e -> e,
+                        (e, duplicate) -> e
                 ));
     }
 }
