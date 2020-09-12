@@ -14,10 +14,4 @@ public class Profile {
         return address;
     }
 
-    static List<Address> collect(List<Profile> profiles) {
-        List<Address> result = profiles.stream()
-                .map(n -> n.getAddress())
-                .collect(Collectors.toList());
-        return result;
-    }
 }
