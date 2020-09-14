@@ -23,26 +23,23 @@ public class BankService {
     }
 
     public User findByPassport(String passport) throws NumberFormatException {
-        try {
             return users.keySet()
                     .stream()
                     .filter(e -> e.getPassport().equals(passport))
-                    .findFirst().get();
-        } catch (NullPointerException e) {
-        return null;
-    }
-
+            .findFirst().orElse(null);
 }
 
     public Account findByRequisite(String passport, String requisite) {
-            return users.values()
-                    .stream()
-                    .flatMap(List::stream)
-                    .collect(Collectors.toList())
-                    .stream()
-                    //.filter(Objects::nonNull)
+        try {
+            User byPassport = findByPassport(passport);
+            List<Account> value = users.get(byPassport);
+
+            return value.stream()
                     .filter(e -> e.getRequisite().equals(requisite))
-                    .findFirst().get();
+                    .findFirst().orElse(null);
+        } catch (NullPointerException e) {
+            return null;
+        }
 
     }
 
