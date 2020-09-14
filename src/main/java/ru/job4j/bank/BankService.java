@@ -3,6 +3,7 @@ package ru.job4j.bank;
 import java.util.HashMap;
 import java.util.*;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
@@ -21,32 +22,28 @@ public class BankService {
         }
     }
 
-    public User findByPassport(String passport) {
-        User rst = null;
-        for (User user : users.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                rst = user;
-                break;
-            }
-        }
-        return rst;
+    public User findByPassport(String passport) throws NumberFormatException {
+        try {
+            return users.keySet()
+                    .stream()
+                    .filter(e -> e.getPassport().equals(passport))
+                    .findFirst().get();
+        } catch (NullPointerException e) {
+        return null;
     }
 
+}
+
     public Account findByRequisite(String passport, String requisite) {
-        User byPassport = findByPassport(passport);
-        Account result = null;
-        if (byPassport != null) {
-            List<Account> value = users.get(byPassport);
-            if (value != null) {
-                for (Account account : value) {
-                    if (account.getRequisite().equals(requisite)) {
-                        result = account;
-                        break;
-                    }
-                }
-            }
-        }
-        return result;
+            return users.values()
+                    .stream()
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList())
+                    .stream()
+                    //.filter(Objects::nonNull)
+                    .filter(e -> e.getRequisite().equals(requisite))
+                    .findFirst().get();
+
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
