@@ -3,7 +3,6 @@ package ru.job4j.bank;
 import java.util.HashMap;
 import java.util.*;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class BankService {
     private Map<User, List<Account>> users = new HashMap<>();
@@ -30,17 +29,12 @@ public class BankService {
 }
 
     public Account findByRequisite(String passport, String requisite) {
-        try {
-            User byPassport = findByPassport(passport);
-            List<Account> value = users.get(byPassport);
-
-            return value.stream()
-                    .filter(e -> e.getRequisite().equals(requisite))
-                    .findFirst().orElse(null);
-        } catch (NullPointerException e) {
-            return null;
-        }
-
+         return users.entrySet().stream()
+                .filter(e -> e.getKey().getPassport().equals(passport))
+                .flatMap(u -> u.getValue().stream())
+                .filter(a -> a.getRequisite().equals(requisite))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
