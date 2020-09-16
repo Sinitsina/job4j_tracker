@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
 public class ConvertListTest  {
     @Test
     public void whenTwoList() {
-        List<int[]> in = new ArrayList<>();
-        in.add(new int[] {1, 4, 5});
-        in.add(new int[] {2, 3});
+        List<int[]> in = new ArrayList<>(List.of(
+        new int[] {1, 4, 5},
+        new int[] {2, 3}));
         List<Integer> expect = List.of(1, 4, 5, 2, 3);
         assertThat(ConvertList.convert(in), is(expect));
     }
