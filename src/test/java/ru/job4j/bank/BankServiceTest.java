@@ -2,15 +2,17 @@ package ru.job4j.bank;
 
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class BankServiceTest {
     @Test
     public void addUser() {
-        User user = new User("3434", "Petr Arsentev");
+        Optional<User> user = java.util.Optional.of(new User("3434", "Petr Arsentev"));
         BankService bank = new BankService();
-        bank.addUser(user);
+        bank.addUser(user.get());
         assertThat(bank.findByPassport("3434"), is(user));
     }
 
