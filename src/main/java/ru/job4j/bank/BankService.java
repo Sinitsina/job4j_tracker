@@ -39,22 +39,22 @@ public class BankService {
             .findFirst().orElse(null);
 }*/
 
-    public Account findByRequisite(String passport, String requisite) {
+    public Optional<Account> findByRequisite(String passport, String requisite) {
          return users.entrySet().stream()
                 .filter(e -> e.getKey().getPassport().equals(passport))
                 .flatMap(u -> u.getValue().stream())
                 .filter(a -> a.getRequisite().equals(requisite))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
+
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
         Optional<Account> srcAccount =
-                Optional.ofNullable(findByRequisite(srcPassport, srcRequisite));
+                (findByRequisite(srcPassport, srcRequisite));
         Optional<Account> destAccount =
-                Optional.ofNullable(findByRequisite(destPassport, destRequisite));
+                (findByRequisite(destPassport, destRequisite));
         if (srcAccount.isPresent()
                 && destAccount.isPresent()
                 && srcAccount.get().getBalance() >= amount) {
