@@ -23,7 +23,6 @@ public class DiapasonCounterTest {
         assertThat(result, is(expected));
     }
 
-
     @Test
     public void whenExponentialFunctionThenExponentialResults() {
         List<Double> result = DiapasonCounter.diapason(5, 8, x -> Math.pow(x, x));

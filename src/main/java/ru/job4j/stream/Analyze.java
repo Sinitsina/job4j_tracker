@@ -3,14 +3,14 @@ package ru.job4j.stream;
 import java.util.Comparator;
 import java.util.List;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Analyze {
     public static double averageScore(Stream<Pupil> stream) {
-        return stream.map(Pupil::getSubjects)
-                .flatMap(Subjects -> Subjects.stream())
-                .mapToInt(e -> e.getScore())
+        return stream.flatMap(pupil -> pupil.getSubjects().stream())
+                .mapToInt(s -> s.getScore())
                 .average().getAsDouble();
     }
 
@@ -21,15 +21,16 @@ public class Analyze {
                         .mapToInt(Subject::getScore)
                         .average().getAsDouble()
         )).collect(Collectors.toList());
-
     }
 
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
-        //Метод averageScoreByPupil вычисляет средний балл по всем предметам для каждого ученика.
-        //Возвращает список из объекта Tuple (название предмета и средний балл).
-        stream.map(Pupil::getSubjects)
-                .flatMap(Subjects -> Subjects.stream()).
-        return null;
+        return stream.flatMap(pupil -> pupil.getSubjects().stream())
+                .collect(Collectors.groupingBy(Subject::getName,
+                Collectors.averagingDouble(Subject::getScore)))
+                .entrySet()
+                .stream()
+                .map((Map.Entry<String, Double> e) -> new Tuple(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
@@ -41,8 +42,12 @@ public class Analyze {
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
-        //Метод bestSubject - возвращает предмет с наибольшим баллом для всех студентов.
-        //Возвращает объект Tuple (имя предмета, сумма баллов каждого ученика по этому предмету)
-        return null;
+        return stream.flatMap(pupil -> pupil.getSubjects().stream())
+                .collect(Collectors.groupingBy(Subject::getName,
+                        Collectors.summingDouble(Subject::getScore)))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map((Map.Entry<String, Double> e) -> new Tuple(e.getKey(), e.getValue())).get();
     }
 }
