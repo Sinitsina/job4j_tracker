@@ -32,7 +32,7 @@ public class ItemAscendingTest {
                 new Item("Second Item"),
                 new Item("Fifth Item")
         );
-        Comparator nameComparator = new SortItemByName();
+        Comparator<Item> nameComparator = new SortItemByName();
         Collections.sort(items, nameComparator.reversed());
         assertThat(items.toString(), is("[Item{id=0, name='Second Item'}, "
                 + "Item{id=0, name='First Item'}, "
