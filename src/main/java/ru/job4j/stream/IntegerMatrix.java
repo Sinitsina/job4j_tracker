@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class IntegerMatrix {
-    Integer[][] matrix = {{1, 2, 3},
+    private Integer[][] matrix = {{1, 2, 3},
             {4, 5, 6}};
 
     static List<Integer> convert(Integer[][] matrix) {

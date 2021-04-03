@@ -2,11 +2,11 @@ package ru.job4j.lambda;
 
 import org.junit.Test;
 
-;import java.util.Arrays;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class DiapasonCounterTest {
     @Test
